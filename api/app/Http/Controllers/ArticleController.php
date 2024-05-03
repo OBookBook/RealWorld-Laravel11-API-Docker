@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -63,17 +64,9 @@ class ArticleController extends Controller
             "body": "Update body content"
         }
      */
-    public function update(Request $request, string $slug)
+    public function update(UpdateArticleRequest $request, Article $article)
     {
-        $article = Article::where('slug', $slug)->firstOrFail();
-
-        $validatedData = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'description' => 'sometimes|required|string',
-            'body' => 'sometimes|required|string'
-        ]);
-    
-        $article->update($validatedData);
+        $article->update($request->validated());
         return response()->json(['article' => $article]);
     }
 
