@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
-                    'message' => 'リソースが見つかりません。',
+                    'message' => 'Resource not found.',
                     'exception' => [
                         'message' => $e->getMessage(),
                         'file' => $e->getFile(),
@@ -36,7 +36,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (MethodNotAllowedHttpException $e, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
-                    'message' => '許可されていないメソッドです。',
+                    'message' => 'Method not allowed.',
                     'exception' => [
                         'message' => $e->getMessage(),
                         'file' => $e->getFile(),
@@ -47,7 +47,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
         $exceptions->render(function (ModelNotFoundException $e, Request $request) {
             return response()->json([
-                'message' => 'モデルがデータベースに見つかりません。',
+                'message' => 'Model not found in database.',
                 'exception' => [
                     'message' => $e->getMessage(),
                     'file' => $e->getFile(),
@@ -57,7 +57,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
         // $exceptions->render(function (AuthenticationException $e, Request $request) {
         //     return response()->json([
-        //         'message' => '認証エラーです。',
+        //         'message' => 'Authentication error.',
         //         'exception' => [
         //             'message' => $e->getMessage(),
         //             'file' => $e->getFile(),
@@ -67,7 +67,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // });
         $exceptions->render(function (ValidationException $e, Request $request) {
             return response()->json([
-                'message' => 'バリデーションエラーが発生しました。',
+                'message' => 'Validation error occurred.',
                 'errors' => $e->errors(),
                 'exception' => [
                     'message' => $e->getMessage(),
