@@ -14,7 +14,6 @@ class ArticleController extends Controller
      * 
      * GET /api/articles
      * http://localhost:8080/api/articles/
-     * 
      */
     public function index()
     {
@@ -28,9 +27,8 @@ class ArticleController extends Controller
      * GET /api/articles/:slug
      * http://localhost:8080/api/articles/1
      */
-    public function show(string $slug)
+    public function show(Article $article)
     {
-        $article = Article::where('slug', $slug)->firstOrFail();
         return response()->json($article);
     }
 
@@ -52,7 +50,6 @@ class ArticleController extends Controller
         return response()->json(['article' => $article]);
     }
 
-        
     /**
      * Update Article
      * PUT /api/articles/:slug
@@ -75,9 +72,8 @@ class ArticleController extends Controller
      * DELETE /api/articles/:slug
      * http://localhost:8080/api/articles/1
      */
-    public function destroy(string $id)
+    public function destroy(Article $article)
     {
-        $article = Article::where('slug', $id)->firstOrFail();
         $article->delete();
         return response()->json(['message' => 'success'], 200);
     }
