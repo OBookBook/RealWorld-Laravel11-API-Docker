@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Http\Requests\StoreArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -45,22 +45,12 @@ class ArticleController extends Controller
             "body": "Test body content"
         }
      */
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'body' => 'required|string'
-        ]);
-
-        $article = new Article();
-        $article->title = $validatedData['title'];
-        $article->description = $validatedData['description'];
-        $article->body = $validatedData['body'];
-        $article->save();
-
+        $article = Article::create($request->validated());
         return response()->json(['article' => $article]);
     }
+
         
     /**
      * Update Article
